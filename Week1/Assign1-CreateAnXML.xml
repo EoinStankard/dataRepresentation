@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+	<catalogue name="technical books">
+		<book>
+			<isbn>9781118871645</isbn>
+			<title>HTML and CSS: Design and Build Websites</title>
+			<author>Jon Duckett</author>
+		</book>
+  
+		<book>
+			<isbn>9780596004200</isbn>
+			<title>Learning XML</title>
+			<author>Erik T. Ray</author>
+		</book>
+	</catalogue>
+	<catalogue name="cookery books">
+		<book>
+			<isbn>9781444780789</isbn>
+			<title>Ultimate Home Cooking</title>
+			<author>Gordon Ramsey</author>
+		</book>
+  
+		<book>
+			<isbn>9780718157678</isbn>
+			<title>Jamies 30-Minute Meals</title>
+			<author>Jamie Oliver</author>
+		</book>
+	</catalogue>
+</library>
