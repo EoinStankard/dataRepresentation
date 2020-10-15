@@ -1,0 +1,29 @@
+N	51.9018	-8.4582	P267	11 Oct 2020	P267\nCork to Mallow\nExpected Departure 12:45	To Mallow
+N	51.9212	-8.17579	P273	11 Oct 2020	P273\nMidleton to Cork\nExpected Departure 12:45	To Cork
+N	52.2667	-7.1183	A503	11 Oct 2020	A503\nWaterford to Dublin Heuston\nExpected Departure 12:40	To Dublin Heuston
+N	52.6587	-8.62397	A425	11 Oct 2020	A425\nLimerick to Limerick Junction\nExpected Departure 12:50	To Limerick Junction
+N	53.3531	-6.24591	D908	11 Oct 2020	D908\nDublin Connolly to Maynooth\nExpected Departure 12:50	Northbound
+R	0	0	A208	11 Oct 2020	A208\n10:00 - Dublin Heuston to Cork (4 mins late)\nDeparted Killarney Junction next stop Cork	To Cork
+R	0	0	A212	11 Oct 2020	A212\n12:00 - Dublin Heuston to Cork (-1 mins late)\nDeparted PL104 next stop Thurles	To Cork
+R	0	0	A226	11 Oct 2020	A226\n19:00 - Dublin Heuston to Cork (51 mins late)\nDeparted Killarney Junction next stop Cork	To Cork
+R	52.1396	-8.65521	A302	11 Oct 2020	A302\n08:30 - Dublin Heuston to Tralee (18 mins late)\nDeparted Mallow next stop Banteer	To Tralee
+R	52.1396	-8.65521	A304	11 Oct 2020	A304\n12:15 - Cork to Tralee (-3 mins late)\nArrived Mallow next stop Banteer	To Tralee
+R	52.5828	-8.38682	A405	11 Oct 2020	A405\n12:25 - Limerick to Dublin Heuston (2 mins late)\nDeparted Drumkeen next stop Thurles	To Dublin Heuston
+R	52.6404	-8.52719	A792	11 Oct 2020	A792\n11:36 - Limerick Junction to Galway (4 mins late)\nDeparted Killonan next stop Limerick	To Galway
+R	52.7878	-7.82293	A400	11 Oct 2020	A400\n11:25 - Dublin Heuston to Limerick (-2 mins late)\nArrived Templemore next stop Thurles	To Limerick
+R	53.1442	-6.06085	A600	11 Oct 2020	A600\n10:25 - Dublin Connolly to Rosslare Europort (2 mins late)\nDeparted Greystones next stop Wicklow	Southbound
+R	53.146	-7.18055	A703	11 Oct 2020	A703\n11:00 - Galway to Dublin Heuston (-1 mins late)\nArrived Portarlington next stop Kildare	To Dublin Heuston
+R	53.2043	-6.10046	E102	11 Oct 2020	E102\n11:35 - Howth to Greystones (0 mins late)\nArrived Bray next stop Greystones	Southbound
+R	53.2043	-6.10046	E802	11 Oct 2020	E802\n12:42 - Bray to Malahide (0 mins late)\nDeparted Bray next stop Shankill	Northbound
+R	53.2469	-6.66386	D201	11 Oct 2020	D201\n12:15 - Dublin Heuston to Kildare (0 mins late)\nDeparted Sallins next stop Newbridge	To Kildare
+R	53.2704	-7.49985	A702	11 Oct 2020	A702\n11:40 - Dublin Heuston to Galway (0 mins late)\nArrived Tullamore next stop Clara	To Galway
+R	53.2991	-6.16512	E906	11 Oct 2020	E906\n12:10 - Greystones to Howth (0 mins late)\nArrived Seapoint next stop Blackrock	Northbound
+R	53.3206	-6.21112	E204	11 Oct 2020	E204\n12:05 - Howth to Bray (1 mins late)\nArrived Sydney Parade next stop Booterstown	Southbound
+R	53.3223	-6.52356	A211	11 Oct 2020	A211\n10:25 - Cork to Dublin Heuston (1 mins late)\nDeparted Hazelhatch next stop Dublin Heuston	To Dublin Heuston
+R	53.334	-6.37868	A403	11 Oct 2020	A403\n10:25 - Limerick to Dublin Heuston (7 mins late)\nDeparted Park West and Cherry Orchard next stop Dublin Heuston	To Dublin Heuston
+R	53.3433	-6.24829	E814	11 Oct 2020	E814\n12:00 - Bray to Malahide (5 mins late)\nDeparted Dublin Pearse next stop Tara Street	Northbound
+R	53.3755	-6.33135	P738	11 Oct 2020	P738\n12:10 - Maynooth to Dublin Connolly (3 mins late)\nDeparted Ashtown next stop Broombridge	Southbound
+R	53.3776	-6.39072	D907	11 Oct 2020	D907\n12:20 - Dublin Connolly to Maynooth (4 mins late)\nArrived Coolmine next stop Clonsilla	Northbound
+R	53.378	-6.58993	P739	11 Oct 2020	P739\n12:40 - Maynooth to Dublin Connolly (2 mins late)\nDeparted Maynooth next stop Leixlip (Louisa Bridge)	Southbound
+R	53.3815	-6.17699	E115	11 Oct 2020	E115\n12:32 - Howth to Greystones (0 mins late)\nArrived Raheny next stop Harmonstown	Southbound
+R	53.3909	-6.15672	E904	11 Oct 2020	E904\n11:40 - Bray to Howth (5 mins late)\nArrived Howth Junction next stop Bayside	Northbound
