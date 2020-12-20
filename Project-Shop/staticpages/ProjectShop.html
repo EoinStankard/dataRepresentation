@@ -206,8 +206,8 @@
                 console.log("In Product"+product.product)
                 host = window.location.origin
                 $.ajax({
-                   //url: 'http://127.0.0.1:5000/Shoppinglist/'+product.product,
-                   url: host+'/Shoppinglist/'+product.product,
+                   url: 'http://127.0.0.1:5000/Shoppinglist/'+product.product,
+                   //url: host+'/Shoppinglist/'+product.product,
                    method:'GET',
                    datatype:'JSON',
                    success:function(results){
@@ -364,7 +364,8 @@
                 //ajax getAll
                 host = window.location.origin
                 $.ajax({
-                   url: 'http://127.0.0.1:5000/Shop',
+                   //url: 'http://127.0.0.1:5000/Shop',
+                   url: host+'/Shop',
                    method:'GET',
                    datatype:'JSON',
                    success:function(results){
