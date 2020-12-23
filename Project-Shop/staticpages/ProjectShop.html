@@ -62,8 +62,8 @@
                 </tr>
                 <tr>
                     <td></td><td>
-                        <button class = "btn" id="create-button" onclick="doCreateProduct()">Create</button>
-                        <button class = "btn" id="update-button" onclick="doUpdate()">update</button>
+                        <button class = "btn" id="create-button" onclick="doCreateProduct()">Create Product</button>
+                        <button class = "btn" id="update-button" onclick="doUpdate()">Update Product Price</button>
                         <button class = "btn" id="home-button" onclick="showDisplay()">Back</button>   
                     </td>
                 </tr>
@@ -336,9 +336,15 @@
 
             function clearForm() {
                 var form = document.getElementById('createUpdateForm')
+                var form2 = document.getElementById('quantityUpdateForm')
+
                 form.querySelector('input[name="product"]').value= ''
                 form.querySelector('input[name="product"]').disabled = false
                 form.querySelector('input[name="price"]').value = ''
+
+                form2.querySelector('input[name="product"]').value= ''
+                form2.querySelector('input[name="product"]').disabled = false
+                form2.querySelector('input[name="price"]').value = ''
             }
 
             function doUpdate(){
