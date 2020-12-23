@@ -50,7 +50,7 @@
     </style>
     <body>
         <div id="create-update" style="display:none">
-            <h2>Add Product</h2>
+            <h2>Product Description</h2>
             <table id="createUpdateForm">
                 <tr>
                     <td>Product</td>
@@ -70,7 +70,7 @@
             </table>
         </div>
         <div id="quantity-update" style="display:none">
-            <h2>Add Product</h2>
+            <h2>Add To Cart</h2>
             <table id="quantityUpdateForm">
                 <tr>
                     <td>Product</td>
@@ -342,7 +342,7 @@
             function doUpdate(){
                 product = getProductFromForm()
                 updateServer(product)
-                updateShoppingListPrice()
+                updateShoppingListPrice(product)
                 //updateShoppingListPrice(product)
                 
             }
