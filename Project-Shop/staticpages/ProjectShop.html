@@ -15,7 +15,7 @@
 			float:left;
             overflow-y: scroll;
 			width:50%;
-			height:85%;
+			height:75%;
 			border-style: solid;
             background: rgba(220, 218, 218, 0.9);
 		}
@@ -24,11 +24,19 @@
 			float:right;
             overflow-y: scroll;
 			width:50%;
-			height:85%;
+			height:75%;
 			border-style: solid;
             background: rgba(220, 218, 218, 0.9);
 		}
 
+        .d3{
+			margin: 0 auto;
+			float:right;
+			width:100%;
+			height:10%;
+			border-style: solid;
+            background: rgba(220, 218, 218, 0.9);
+		}
         .btn{
             border-style: solid;
             background-color: rgb(146, 146, 146);
@@ -69,6 +77,10 @@
                     <td><input type="text" name="product"></td>
                 </tr>
                 <tr>    
+                    <td>Price</td>
+                    <td><input type="currency" name="price"></td>
+                </tr>
+                <tr>    
                     <td>Quantity</td>
                     <td><input type="currency" name="quantity"></td>
                 </tr>
@@ -98,6 +110,13 @@
                     <tr>
                         <h3><center>Shopping List</center></h3>
                         <th>Product</th><th>Quantity</th><th>Total</th><th></th><th></th>
+                    </tr>                    
+                </table>
+            </div>
+            <div class="d3">
+				<table id="totalTable" class="table">
+                    <tr>
+                        <th></th><th></th><th></th><th></th><th></th><th>Total: </th><th></th><th></th>
                     </tr>                    
                 </table>
             </div>
@@ -145,7 +164,8 @@
                 var form = document.getElementById('quantityUpdateForm')
                 form.querySelector('input[name="product"]').value = product.product
                 form.querySelector('input[name="product"]').disabled=true
-                //form.querySelector('input[name="quantity"]').value = product.price    
+                form.querySelector('input[name="price"]').value = product.price    
+                form.querySelector('input[name="price"]').disabled=true
             }
 
             function readProductFromRow(rowElement){
@@ -158,8 +178,10 @@
             function doCreateProduct(){
                 product= getProductFromForm()
                 console.log(product)
+                host = window.location.origin
                 $.ajax({
-                    url:"/Shop",
+                    url:host+"/Shop",
+                    //url:"http://127.0.0.1:5000/Shop",
                     data:JSON.stringify(product),
                     method:"POST",
                     dataType:"JSON",
@@ -176,50 +198,29 @@
                 })
             }
 
-            /*function addProduct(){
-                product= getProductQuantityFromForm()
-                console.log(product)
-                console.log("In Product"+product)
-                $.ajax({
-                    url:"/Shoppinglist",
-                    data:JSON.stringify(product),
-                    method:"POST",
-                    dataType:"JSON",
-                    contentType: "application/json; charset=utf-8",
-                    success:function(result){
-                        console.log(result) 
-                        addShoppinglist(product)
-                        showDisplay()
-                        clearForm()
-
-                    },
-                    error:function(xhr,status,error){
-                        console.log("error"+error)
-                    }
-                })
-            }*/
-
 
             function addProduct(){
                 product= getProductQuantityFromForm()
                 console.log(product)
-                console.log("In Product"+product.product)
                 host = window.location.origin
+
                 $.ajax({
-                   url: 'http://127.0.0.1:5000/Shoppinglist/'+product.product,
-                   //url: host+'/Shoppinglist/'+product.product,
+                   //url: 'http://127.0.0.1:5000/Shoppinglist/'+product.product,
+                   url: host+'/Shoppinglist/'+product.product,
                    method:'GET',
                    datatype:'JSON',
                    success:function(results){
-                        console.log(results)
+                        console.log("PP "+results)
                         if (results == 1){
                             $.ajax({
-                                url:"/Shoppinglist",
+                                url:host+"/Shoppinglist",
+                                //url:"http://127.0.0.1:5000/Shoppinglist",
                                 data:JSON.stringify(product),
                                 method:"POST",
                                 dataType:"JSON",
                                 contentType: "application/json; charset=utf-8",
                                 success:function(result){
+                                    console.log("PP2 "+results)
                                     console.log(result) 
                                     addShoppinglist(product)
                                     showDisplay()
@@ -232,7 +233,8 @@
                             })
                         }else{
                             $.ajax({
-                                url: "/Shoppinglist/"+product.product,
+                                url: host+"/Shoppinglist/"+product.product,
+                                //url:"http://127.0.0.1:5000/Shoppinglist/"+product.product,
                                 data: JSON.stringify(product),
                                 method: "PUT",
                                 dataType: "JSON",
@@ -257,6 +259,7 @@
                    }
 
                })
+
             }
 
             function doDelete(thisElem){
@@ -264,8 +267,10 @@
                 var rowElement = thisElem.parentNode.parentNode;
                 var index = rowElement.rowIndex;
                 product = rowElement.getAttribute("id");
+                host = window.location.origin
                 $.ajax({
-                    url:"/Shop/"+product,
+                    url:host+"/Shop/"+product,
+                    //url:"http://127.0.0.1:5000/Shop/"+product,
                     method:"DELETE",
                     dateType:"JSON",
                     success:function(result){
@@ -282,12 +287,15 @@
                 var rowElement = thisElem.parentNode.parentNode;
                 var index = rowElement.rowIndex;
                 product = rowElement.getAttribute("id");
+                host = window.location.origin
                 $.ajax({
-                    url:"/Shoppinglist/"+product,
+                    url:host+"/Shoppinglist/"+product,
+                    //url: "http://127.0.0.1:5000/Shoppinglist/"+product,
                     method:"DELETE",
                     dateType:"JSON",
                     success:function(result){
                         tableElement.deleteRow(index);
+                        calculateTotal()
                     },
                     error:function(xhr,status,error){
                         console.log(error)
@@ -298,10 +306,10 @@
 
             function getProductQuantityFromForm(){
                 var form = document.getElementById('quantityUpdateForm')
-
                 var product = {}
                 product.product = form.querySelector('input[name="product"]').value
                 product.quantity = form.querySelector('input[name="quantity"]').value
+                product.price = form.querySelector('input[name="price"]').value
                 return product
             }
 
@@ -324,17 +332,47 @@
             function doUpdate(){
                 product = getProductFromForm()
                 updateServer(product)
+                updateShoppingListPrice()
+                //updateShoppingListPrice(product)
                 
             }
-
-            function updateServer(product){
-               $.ajax({
-                    url: "/Shop/"+product.product,
+            function updateShoppingListPrice(product){
+                console.log("IN PRICE"+product)
+                $.ajax({
+                    url: host+"/ShoppinglistPrice/"+product.product,
+                    //url:"http://127.0.0.1:5000/ShoppinglistPrice/"+product.product,
                     data: JSON.stringify(product),
                     method: "PUT",
                     dataType: "JSON",
                     contentType: "application/json; charset=utf-8",
                     success: function (result) {
+                        //updateShoppingList(product)
+                        //populateShopTable()
+                        document.getElementById("customerTable").innerHTML = "<th>Product</th><th>Quantity</th><th>Total</th><th></th><th></th>"
+                        populateCustomerTable()
+                        showDisplay()
+                        clearForm()
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.log("error" + error)
+                    }
+                })
+            }
+
+            function updateServer(product){
+                host = window.location.origin
+               $.ajax({
+                    url:host+ "/Shop/"+product.product,
+                    //url:"http://127.0.0.1:5000/Shop/"+product.product,
+                    data: JSON.stringify(product),
+                    method: "PUT",
+                    dataType: "JSON",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (result) {
+                        //document.getElementById("customerTable").innerHTML = "<th>Product</th><th>Quantity</th><th>Total</th><th></th><th></th>"
+                        //populateCustomerTable()
+                        updateShoppingListPrice(product)
                         updateTableRow(product)
                         showDisplay()
                         clearForm()
@@ -346,6 +384,7 @@
                 })
             }
 
+            
             function updateTableRow(product){
                 rowElement = document.getElementById(product.product)
                 rowElement.cells[0].firstChild.textContent = product.product
@@ -362,9 +401,10 @@
            
            function populateShopTable(){
                 //ajax getAll
+                console.log("Populating Shop")
                 host = window.location.origin
                 $.ajax({
-                   //url: 'http://127.0.0.1:5000/Shop',
+                  //url: 'http://127.0.0.1:5000/Shop',
                    url: host+'/Shop',
                    method:'GET',
                    datatype:'JSON',
@@ -372,6 +412,7 @@
                         for (product of results){
                             addProductShop(product)
                         }
+                        populateCustomerTable()
                    },
                    error:function (xhr,status,error){
                        console.log ("error "+error +" code:"+status)
@@ -383,6 +424,7 @@
 
             function populateCustomerTable(){
                 //ajax getAll
+                console.log("Populating Shopping List")
                 host = window.location.origin
                 $.ajax({
                    //url:'http://127.0.0.1:5000/Shoppinglist',
@@ -403,35 +445,50 @@
                
             }
 
-            function addShoppinglist(product){
+            function calculateTotal(){
+                //ajax getAll
+                console.log("Calculating total")
                 host = window.location.origin
                 $.ajax({
-                   //url:'http://127.0.0.1:5000/Shop/'+product.product,
-                   url:host+'/Shop/'+product.product,
+                   //url:'http://127.0.0.1:5000/ShoppinglistTotal',
+                   url: host+'/ShoppinglistTotal',
                    method:'GET',
                    datatype:'JSON',
                    contentType: "application/json; charset=utf-8",
                    success:function(results){
-                        console.log("FOUND PRODUCT: ",results.price)
-                        var price = parseFloat(results.price).toFixed(2);
-                        tableElem = document.getElementById("customerTable")
-                        rowElem = tableElem.insertRow(-1)
-                        rowElem.setAttribute("id", product.product)
-                        cell1 = rowElem.insertCell(0)
-                        cell1.innerHTML = product.product
-                        cell2 = rowElem.insertCell(1)
-                        cell2.innerHTML = product.quantity
-                        cell3 = rowElem.insertCell(2)
-                        cell3.innerHTML = "€"+(results.price*product.quantity).toFixed(2)
-                        cell4 = rowElem.insertCell(3)
-                        cell4.innerHTML = '<button class="btn" onclick="doDeleteCart(this)">Delete</button>' 
-                        cell5 = rowElem.insertCell(4)
+                        var total = 0.0
+                        for (product of results){
+                            console.log(product.price*product.quantity)
+                            total = total +(product.price*product.quantity)
+                        
+                        }
+                        console.log(total.toFixed(2))
+                        document.getElementById("totalTable").innerHTML ="<h4><center>Shopping List Total: €"+total.toFixed(2)+"</center></h4>"
                    },
                    error:function (xhr,status,error){
                        console.log ("error "+error +" code:"+status)
                    }
 
                })
+               
+            }
+            
+            function addShoppinglist(product){
+                console.log("DAAINF PRODUCT: "+product.price)
+                tableElem = document.getElementById("customerTable")
+                rowElem = tableElem.insertRow(-1)
+                rowElem.setAttribute("id", product.product)
+                cell1 = rowElem.insertCell(0)
+                cell1.innerHTML = product.product
+                cell2 = rowElem.insertCell(1)
+                cell2.innerHTML = product.quantity
+                cell3 = rowElem.insertCell(2)
+                cell3.innerHTML = "€"+(product.price*product.quantity).toFixed(2)
+                cell4 = rowElem.insertCell(3)
+                cell4.innerHTML = '<button class="btn" onclick="doDeleteCart(this)">Delete</button>' 
+                cell5 = rowElem.insertCell(4)
+                calculateTotal()
+
             }
 
             function addProductShop(product){
@@ -441,7 +498,7 @@
                 cell1 = rowElem.insertCell(0)
                 cell1.innerHTML = product.product
                 cell2 = rowElem.insertCell(1)
-                cell2.innerHTML = "€"+product.price
+                cell2.innerHTML = product.price
                 cell3 = rowElem.insertCell(2)
                 cell3.innerHTML = '<button class = "btn" onclick="addToCart(this)">Add to Cart</button>'
                 cell4 = rowElem.insertCell(3)
@@ -449,22 +506,7 @@
                 cell5 = rowElem.insertCell(4)
                 cell5.innerHTML = '<button class = "btn" onclick="doDelete(this)">Delete</button>'
             }
-            /*function addShoppinglist(product){
-                //console.log("working so far")
-                tableElem = document.getElementById("customerTable")
-                rowElem = tableElem.insertRow(-1)
-                rowElem.setAttribute("id", product.product)
-                cell1 = rowElem.insertCell(0)
-                cell1.innerHTML = product.product
-                cell2 = rowElem.insertCell(1)
-                cell2.innerHTML = product.quantity
-                cell3 = rowElem.insertCell(2)
-                //updateTotal(product)
-                cell3.innerHTML = "??"
-                cell4 = rowElem.insertCell(3)
-                cell4.innerHTML = '<button onclick="doDeleteCart(this)">Delete</button>'   
-            }*/
-
+            
             function showDisplay() {
                 document.getElementById('display').style.display = "block"
                 document.getElementById('create-update').style.display = "none"
@@ -472,7 +514,8 @@
 
             }
             populateShopTable()
-            populateCustomerTable()
+            //populateCustomerTable()
+            calculateTotal()
         </script>
     </body>
 </html>

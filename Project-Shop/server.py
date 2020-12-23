@@ -2,7 +2,7 @@ from ProjectShop import projectShop
 from flask import Flask, url_for, request, redirect, abort, jsonify
 from flask_cors import CORS
 app = Flask(__name__, static_url_path='', static_folder='staticpages')
-CORS(app)
+#CORS(app)
 @app.route('/')
 def index():
     return "hello"
@@ -40,9 +40,11 @@ def updateProductPrice(product):
     foundProducts= projectShop.findByName(product)
     if foundProducts == {}:
         return jsonify({}), 404
+    
     currentProduct = foundProducts
     if 'product' in request.json:
         currentProduct['product'] = request.json['product']
+
     if 'price' in request.json:
         currentProduct['price'] = request.json['price']
     projectShop.updatePrice(currentProduct)
@@ -56,12 +58,15 @@ def deleteProduct(product):
     return jsonify({"done":True})
 
 #**************************************************************************************
-#                                 SHOP
+#                                 SHOPPING LIST
 #**************************************************************************************
 @app.route('/Shoppinglist')
 def getShoppingList():
     return jsonify(projectShop.getShoppingList())
 
+@app.route('/ShoppinglistTotal')
+def getShoppingListTotal():
+    return jsonify(projectShop.calculateTotal())
 
 # find By id
 @app.route('/Shoppinglist/<product>')
@@ -76,11 +81,12 @@ def createShoppingList():
     
     product = {
         "product": request.json["product"],
-        "quantity": request.json["quantity"]
+        "quantity": request.json["quantity"],
+        "price": request.json["price"]
     }
     return jsonify(projectShop.createShoppingList(product))
 
-#update
+#update Quantity
 #curl -X PUT -d "{\"product\":\"coke\", \"quantity\":1}" -H Content-Type:application/json http://127.0.0.1:5000/Shoppinglist/coke
 @app.route('/Shoppinglist/<product>', methods=['PUT'])
 def updateQuantity(product):
@@ -93,6 +99,22 @@ def updateQuantity(product):
     if 'quantity' in request.json:
         currentProduct['quantity'] = request.json['quantity']
     projectShop.updateQuantity(currentProduct)
+    return jsonify(currentProduct)
+    
+
+@app.route('/ShoppinglistPrice/<product>', methods=['PUT'])
+def updateShoppingListPrice(product):
+    foundProducts= projectShop.findShoppingList(product)
+    if foundProducts == {}:
+        return jsonify({}), 404
+
+    currentProduct = foundProducts
+    if 'product' in request.json:
+        currentProduct['product'] = request.json['product']
+
+    if 'price' in request.json:
+        currentProduct['price'] = request.json['price']
+    projectShop.updatePrice2(currentProduct)
     return jsonify(currentProduct)
 
 # find By id
