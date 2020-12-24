@@ -125,6 +125,8 @@
         <script>
             host = window.location.origin
             //host = "http://127.0.0.1:5000"
+
+
             function showDisplay() {
                 document.getElementById('display').style.display = "block"
                 document.getElementById('create-update').style.display = "none"
@@ -190,6 +192,7 @@
                 product.price = rowElement.cells[1].firstChild.textContent
                 return product   
             }
+
             function doCreateProduct(){
                 product= getProductFromForm()
                 console.log(product)
