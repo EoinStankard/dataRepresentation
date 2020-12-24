@@ -123,6 +123,8 @@
         </div>
         
         <script>
+            host = window.location.origin
+            //host = "http://127.0.0.1:5000"
             function showDisplay() {
                 document.getElementById('display').style.display = "block"
                 document.getElementById('create-update').style.display = "none"
@@ -191,7 +193,7 @@
             function doCreateProduct(){
                 product= getProductFromForm()
                 console.log(product)
-                host = window.location.origin
+                //host = window.location.origin
                 $.ajax({
                     url:host+"/Shop",
                     //url:"http://127.0.0.1:5000/Shop",
@@ -215,7 +217,7 @@
             function addProduct(){
                 product= getProductQuantityFromForm()
                 console.log(product)
-                host = window.location.origin
+                //host = window.location.origin
 
                 $.ajax({
                    //url: 'http://127.0.0.1:5000/Shoppinglist/'+product.product,
@@ -278,7 +280,7 @@
                 var rowElement = thisElem.parentNode.parentNode;
                 var index = rowElement.rowIndex;
                 product = rowElement.getAttribute("id");
-                host = window.location.origin
+                //host = window.location.origin
                 $.ajax({
                     url:host+"/Shop/"+product,
                     //url:"http://127.0.0.1:5000/Shop/"+product,
@@ -298,7 +300,7 @@
                 var rowElement = thisElem.parentNode.parentNode;
                 var index = rowElement.rowIndex;
                 product = rowElement.getAttribute("id");
-                host = window.location.origin
+                //host = window.location.origin
                 $.ajax({
                     url:host+"/Shoppinglist/"+product,
                     //url: "http://127.0.0.1:5000/Shoppinglist/"+product,
@@ -374,7 +376,7 @@
             }
 
             function updateServer(product){
-                host = window.location.origin
+               // host = window.location.origin
                $.ajax({
                     url:host+ "/Shop/"+product.product,
                     //url:"http://127.0.0.1:5000/Shop/"+product.product,
@@ -412,7 +414,7 @@
            
            function populateShopTable(){
                 console.log("Populating Shop")
-                host = window.location.origin
+                //host = window.location.origin
                 $.ajax({
                   //url: 'http://127.0.0.1:5000/Shop',
                    url: host+'/Shop',
@@ -435,7 +437,7 @@
             function populateCustomerTable(){
                 //ajax getAll
                 console.log("Populating Shopping List")
-                host = window.location.origin
+                //host = window.location.origin
                 $.ajax({
                    //url:'http://127.0.0.1:5000/Shoppinglist',
                    url: host+'/Shoppinglist',
@@ -458,7 +460,7 @@
             function calculateTotal(){
                 //ajax getAll
                 console.log("Calculating total")
-                host = window.location.origin
+               // host = window.location.origin
                 $.ajax({
                    //url:'http://127.0.0.1:5000/ShoppinglistTotal',
                    url: host+'/ShoppinglistTotal',
