@@ -4,6 +4,7 @@ from mysql.connector import cursor
 
 class ProjectShop:
     db = ""
+    #Connet to DB
     def connectToDB(self):
         self.db = mysql.connector.connect(
             host = cfg.mysql['host'],
@@ -12,9 +13,11 @@ class ProjectShop:
             database =cfg.mysql['database']
         )
 
+    # Make connection
     def __init__(self):
         self.connectToDB()
 
+    #Make sure connection is alive
     def getCursor(self):
         if not self.db.is_connected():
             self.connectToDB()

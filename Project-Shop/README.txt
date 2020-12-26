@@ -15,7 +15,7 @@ MYSQL Tables - "createTable.py"
 LOCAL MACHINE:
     1. Make sure Git repo is fully downloaded "git clone https://github.com/EoinStankard/dataRepresentation.git"
     2. Create DB and tables (shop and customer) using above commands
-	- May need to update with your own username and password
+	- Update "dbconfig.py" with your db username password and database name
     3. Open ProjectShop.html and make sure line 127 - "host = "http://127.0.0.1:5000"" is not commented out 
         - Line 126  //host = window.location.origin
         - Line 127    host = "http://127.0.0.1:5000"
