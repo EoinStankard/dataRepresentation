@@ -4,18 +4,26 @@ from mysql.connector import cursor
 
 class ProjectShop:
     db = ""
-    def __init__(self):
+    def connectToDB(self):
         self.db = mysql.connector.connect(
             host = cfg.mysql['host'],
             user= cfg.mysql['username'],
             password = cfg.mysql['password'],
             database =cfg.mysql['database']
         )
+
+    def __init__(self):
+        self.connectToDB()
+
+    def getCursor(self):
+        if not self.db.is_connected():
+            self.connectToDB()
+        return self.db.cursor()
     #**************************************************************************************
     #                   SHOP PRODUCT FUNCTIONS
     #**************************************************************************************
     def createShop(self, product):
-        cursor = self.db.cursor()
+        cursor = self.getCursor()
         sql = "insert into shop (product, price) values (%s,%s)"
         values = [
             product['product'],
@@ -27,7 +35,7 @@ class ProjectShop:
         return cursor.lastrowid
 
     def getAllShop(self):
-        cursor = self.db.cursor()
+        cursor = self.getCursor()
         sql = 'select * from shop'
         cursor.execute(sql)
         results = cursor.fetchall()
@@ -40,7 +48,7 @@ class ProjectShop:
 
 
     def findByName(self, product):
-        cursor = self.db.cursor()
+        cursor = self.getCursor()
         sql = 'select * from shop where product = %s'
         values = [ product ]
         cursor.execute(sql, values)
@@ -49,7 +57,7 @@ class ProjectShop:
         return self.convertToShopDict(result)
 
     def updatePrice(self, product):
-       cursor = self.db.cursor()
+       cursor = self.getCursor()
        sql = "update shop set price = %s where product = %s"
        values = [
            product['price'],
@@ -61,7 +69,7 @@ class ProjectShop:
        return product
 
     def deleteShopProduct(self, product):
-       cursor = self.db.cursor()
+       cursor = self.getCursor()
        sql = "delete from shop where product= %s"
        values = [
            product
@@ -85,7 +93,7 @@ class ProjectShop:
     #                   CUSTOMER FUNCTIONS
     #**************************************************************************************
     def createShoppingList(self, product):
-        cursor = self.db.cursor()
+        cursor = self.getCursor()
         sql = "insert into customer (product, quantity,price) values (%s,%s,%s)"
         values = [
             product['product'],
@@ -98,7 +106,7 @@ class ProjectShop:
         return cursor.lastrowid
 
     def findByListName(self, product):
-        cursor = self.db.cursor()
+        cursor = self.getCursor()
         sql = 'select * from customer where product = %s'
         values = [ product ]
         cursor.execute(sql, values)
@@ -107,7 +115,7 @@ class ProjectShop:
         return self.convertToCustomerDict(result)
 
     def getShoppingList(self):
-        cursor = self.db.cursor()
+        cursor = self.getCursor()
         sql = 'select * from customer'
         cursor.execute(sql)
         results = cursor.fetchall()
@@ -119,7 +127,7 @@ class ProjectShop:
         return returnArray
 
     def updateQuantity(self, product):
-       cursor = self.db.cursor()
+       cursor = self.getCursor()
        sql = "update customer set quantity = %s where product = %s"
        values = [
            product['quantity'],
@@ -131,7 +139,7 @@ class ProjectShop:
        return product
 
     def updatePrice2(self, product):
-       cursor = self.db.cursor()
+       cursor = self.getCursor()
        sql = "update customer set price = %s where product = %s"
        values = [
            product['price'],
@@ -143,7 +151,7 @@ class ProjectShop:
        return product
 
     def deleteItem(self, product):
-       cursor = self.db.cursor()
+       cursor = self.getCursor()
        sql = "delete from customer where product= %s"
        values = [
            product
@@ -154,7 +162,7 @@ class ProjectShop:
        return product
 
     def findShoppingList(self, product):
-        cursor = self.db.cursor()
+        cursor = self.getCursor()
         sql = 'select * from customer where product = %s'
         values = [ product ]
         cursor.execute(sql, values)
@@ -187,7 +195,7 @@ class ProjectShop:
             return 1
 
     def calculateTotal(self):
-        cursor = self.db.cursor()
+        cursor = self.getCursor()
         sql = 'select quantity,price from customer'
         cursor.execute(sql)
         results = cursor.fetchall()
