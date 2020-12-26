@@ -101,7 +101,7 @@ def updateQuantity(product):
     projectShop.updateQuantity(currentProduct)
     return jsonify(currentProduct)
     
-
+#update product price per unit
 @app.route('/ShoppinglistPrice/<product>', methods=['PUT'])
 def updateShoppingListPrice(product):
     foundProducts= projectShop.findShoppingList(product)
