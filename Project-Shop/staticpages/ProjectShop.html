@@ -108,7 +108,7 @@
             <div class="d2">
 				<table id="customerTable" class="table">
                     <tr>
-                        <h3><center>Shopping List</center></h3>
+                        <h3><center>Shopping Cart</center></h3>
                         <th>Product</th><th>Quantity</th><th>Total</th><th></th><th></th>
                     </tr>                    
                 </table>
@@ -116,15 +116,15 @@
             <div class="d3">
 				<table id="totalTable" class="table">
                     <tr>
-                        <th></th><th></th><th></th><th></th><th></th><th>Total: </th><th></th><th></th>
+                        <h4><center>Shopping Cart Total: €0.00</center></h4>
                     </tr>                    
                 </table>
             </div>
         </div>
         
         <script>
-            host = window.location.origin
-            //host = "http://127.0.0.1:5000"
+            //host = window.location.origin
+            host = "http://127.0.0.1:5000"
 
 
             function showDisplay() {
@@ -478,7 +478,7 @@
                         
                         }
                         console.log(total.toFixed(2))
-                        document.getElementById("totalTable").innerHTML ="<h4><center>Shopping List Total: €"+total.toFixed(2)+"</center></h4>"
+                        document.getElementById("totalTable").innerHTML ="<h4><center>Shopping Cart Total: €"+total.toFixed(2)+"</center></h4>"
                    },
                    error:function (xhr,status,error){
                        console.log ("error "+error +" code:"+status)
